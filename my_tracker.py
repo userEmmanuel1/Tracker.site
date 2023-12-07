@@ -12,13 +12,13 @@ def run_stock_tracker(tracking_stocks, email_sms_value):
     smtp_server = "smtp.gmail.com"
     email_from = "ecueva003@gmail.com"
     email_to = email_sms_value
-    pw = "ihvv iluz gmrc vcqh"
+    pw = ""
     simple_email_context = ssl.create_default_context()
 
     # Stock tracker configuration
     ticker = tracking_stocks
     msg1 = f"Check the stock {ticker}, probably SELL"
-    api_key = "71959a3173904d4cb215fe33857b2665"
+    api_key = ""
 
     # Function to get stock price
     def get_stock_price(ticker_symbol, api):
@@ -41,10 +41,10 @@ def run_stock_tracker(tracking_stocks, email_sms_value):
             print(f"Sent email to {email_to}")
 
             resp = requests.post('https://textbelt.com/text', {
-                'phone': '+13237173041',
+                'phone': '+',
                 'heading': 'STFU',
                 'message': message,
-                'key': 'cd2595248c0ac46913b132b3ff6f335fa996cd95BAfjSt35FbB3Nnp0X7oxtIJlE',
+                'key': '',
             })
             print(resp.json())
 
