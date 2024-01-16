@@ -1,0 +1,29 @@
+from bs4 import BeautifulSoup 
+import httpx
+
+url = "https://www.capitoltrades.com/issuers?per_page=96&sortBy=-countPoliticians"
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+}
+
+# Make an HTTP request
+response = httpx.get(url, headers=headers)
+
+if response.status_code == 200:
+    # Parse the HTML content with BeautifulSoup
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    
+    member_names = [member.text.strip() for member in soup.select('.q-field.countPoliticians')]
+    company_names = [company.text.strip() for company in soup.select('.q-fieldset.issuer-name')]
+
+    for index, name in enumerate(member_names):
+        # Convert the string to an integer
+        num_politicians = int(name)
+
+        print(f"Company: {company_names[index]}, Politicians: {num_politicians}")
+
+        if num_politicians > 20:
+            print(f"The Company {company_names[index]} has 20 or more politicians invested")
+else:
+    print(f"Failed to retrieve the page. Status code: {response.status_code}")
